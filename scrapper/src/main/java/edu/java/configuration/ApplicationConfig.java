@@ -11,6 +11,7 @@ import org.springframework.validation.annotation.Validated;
 public record ApplicationConfig(
     @NotNull String gitHubBaseUrl,
     @NotNull String stackoverflowBaseUrl,
+    @NotNull String botBaseUrl,
 
     @Bean
     @NotNull Scheduler scheduler

@@ -1,8 +1,8 @@
-package edu.java.clients.impl;
+package edu.java.updateClients.impl;
 
-import edu.java.clients.StackOverflowClient;
 import edu.java.configuration.ApplicationConfig;
-import edu.java.dto.StackOverflowQuestionResponse;
+import edu.java.updateClients.StackOverflowClient;
+import edu.java.updateClients.updateDto.StackOverflowQuestionResponse;
 import java.util.List;
 import org.springframework.web.reactive.function.client.WebClient;
 

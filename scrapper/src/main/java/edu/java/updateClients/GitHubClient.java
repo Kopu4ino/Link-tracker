@@ -1,6 +1,6 @@
-package edu.java.clients;
+package edu.java.updateClients;
 
-import edu.java.dto.GitHubEventResponse;
+import edu.java.updateClients.updateDto.GitHubEventResponse;
 import java.util.List;
 
 public interface GitHubClient {

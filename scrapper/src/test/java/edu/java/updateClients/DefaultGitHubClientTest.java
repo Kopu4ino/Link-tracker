@@ -1,10 +1,10 @@
-package edu.java.clients;
+package edu.java.updateClients;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import edu.java.clients.impl.DefaultGitHubClient;
-import edu.java.dto.GitHubEventResponse;
+import edu.java.updateClients.impl.DefaultGitHubClient;
+import edu.java.updateClients.updateDto.GitHubEventResponse;
 import java.time.OffsetDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;

@@ -1,8 +1,8 @@
-package edu.java.clients.impl;
+package edu.java.updateClients.impl;
 
-import edu.java.clients.GitHubClient;
 import edu.java.configuration.ApplicationConfig;
-import edu.java.dto.GitHubEventResponse;
+import edu.java.updateClients.GitHubClient;
+import edu.java.updateClients.updateDto.GitHubEventResponse;
 import java.util.List;
 import org.springframework.web.reactive.function.client.WebClient;
 
