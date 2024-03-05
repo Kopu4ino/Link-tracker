@@ -1,4 +1,4 @@
-package edu.java.bot.api.dto.response;
+package shared.dto.response;
 
 public record ApiErrorResponse(
     String description,

@@ -1,8 +1,8 @@
-package edu.java.bot.api.exceptions;
+package edu.java.services.exceptions;
 
-import edu.java.bot.api.dto.response.ApiErrorResponse;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import shared.dto.response.ApiErrorResponse;
 
 @AllArgsConstructor
 @Getter

@@ -1,9 +1,7 @@
 package edu.java.api.client;
 
-import edu.java.api.dto.request.LinkUpdateRequest;
-import edu.java.api.dto.response.ApiErrorResponse;
-import edu.java.api.exceptions.ApiErrorException;
 import edu.java.configuration.ApplicationConfig;
+import edu.java.services.exceptions.ApiErrorException;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -11,6 +9,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.BodyInserters;
 import org.springframework.web.reactive.function.client.WebClient;
 import reactor.core.publisher.Mono;
+import shared.dto.request.LinkUpdateRequest;
+import shared.dto.response.ApiErrorResponse;
 
 @Service
 public class BotClient {
