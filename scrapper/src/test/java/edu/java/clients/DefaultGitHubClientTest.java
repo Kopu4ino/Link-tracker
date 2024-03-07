@@ -57,11 +57,9 @@ public class DefaultGitHubClientTest {
 
     @Test
     void fetchRepositoryEventsShouldReturnExpectedEvent() {
+        //Arrange
         String baseUrl = String.format("http://localhost:%s", wireMockServer.port());
         GitHubClient client = new DefaultGitHubClient(WebClient.builder(), baseUrl);
-
-        List<GitHubEventResponse> gitHubEventResponses = client.fetchRepositoryEvents("owner", "repoName");
-
         OffsetDateTime expectedDate = OffsetDateTime.parse("2024-02-24T13:28:49Z", DateTimeFormatter.ISO_DATE_TIME);
         GitHubEventResponse expectedResponse = new GitHubEventResponse(
             "PushEvent",
@@ -70,6 +68,10 @@ public class DefaultGitHubClientTest {
             expectedDate
         );
 
+        //Act
+        List<GitHubEventResponse> gitHubEventResponses = client.fetchRepositoryEvents("owner", "repoName");
+
+        //Assert
         assertThat(gitHubEventResponses).hasSize(1);
         assertThat(gitHubEventResponses.getFirst()).usingRecursiveComparison().isEqualTo(expectedResponse);
     }
