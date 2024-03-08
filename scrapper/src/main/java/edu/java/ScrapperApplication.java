@@ -13,16 +13,5 @@ public class ScrapperApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(ScrapperApplication.class, args);
-
-//        BotClient botClient = new BotClient(WebClient.builder(), "http://localhost:8090");
-//        LinkUpdateRequest linkUpdateRequest = new LinkUpdateRequest(
-//            10L,  URI.create("http:/test"), "description", List.of(1L, 2L, 3L, 4L)
-//        );
-//
-//        log.info("Пытаюсь отправить запрос");
-//        Optional<String> response = botClient.sendUpdate(linkUpdateRequest);
-//
-//        log.info("isPresent? --> " + response.isPresent());
-//        log.info(response.get());
     }
 }
