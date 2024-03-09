@@ -1,5 +1,19 @@
 package edu.java.scrapper;
 
+import java.io.File;
+import java.nio.file.Path;
+import java.sql.Connection;
+import liquibase.Contexts;
+import liquibase.LabelExpression;
+import liquibase.Liquibase;
+import liquibase.database.Database;
+import liquibase.database.DatabaseFactory;
+import liquibase.database.jvm.JdbcConnection;
+import liquibase.resource.DirectoryResourceAccessor;
+import liquibase.resource.ResourceAccessor;
+import lombok.extern.log4j.Log4j2;
+import org.springframework.boot.jdbc.DataSourceBuilder;
+import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.test.context.DynamicPropertyRegistry;
 import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.JdbcDatabaseContainer;
@@ -7,8 +21,11 @@ import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.junit.jupiter.Testcontainers;
 
 @Testcontainers
+@Log4j2
 public abstract class IntegrationTest {
     public static PostgreSQLContainer<?> POSTGRES;
+
+    public static JdbcTemplate jdbcTemplate;
 
     static {
         POSTGRES = new PostgreSQLContainer<>("postgres:15")
@@ -17,11 +34,31 @@ public abstract class IntegrationTest {
             .withPassword("postgres");
         POSTGRES.start();
 
-        runMigrations(POSTGRES);
+        try {
+            runMigrations(POSTGRES);
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+
+        jdbcTemplate = new JdbcTemplate(DataSourceBuilder.create()
+            .url(POSTGRES.getJdbcUrl())
+            .username(POSTGRES.getUsername())
+            .password(POSTGRES.getPassword())
+            .build());
     }
 
-    private static void runMigrations(JdbcDatabaseContainer<?> c) {
-        // ...
+    private static void runMigrations(JdbcDatabaseContainer<?> container) throws Exception {
+        Connection connection = POSTGRES.createConnection("");
+
+        Database database = DatabaseFactory.getInstance()
+            .findCorrectDatabaseImplementation(new JdbcConnection(connection));
+
+        Path changeLogPath = new File(".").toPath().toAbsolutePath()
+            .getParent().getParent().resolve("migrations").resolve("liquibase");
+
+        ResourceAccessor resourceAccessor = new DirectoryResourceAccessor(changeLogPath);
+        Liquibase liquibase = new Liquibase("master.xml", resourceAccessor, database);
+        liquibase.update(new Contexts(), new LabelExpression());
     }
 
     @DynamicPropertySource
