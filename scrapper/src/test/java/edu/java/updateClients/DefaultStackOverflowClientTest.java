@@ -22,6 +22,7 @@ class DefaultStackOverflowClientTest {
 
     @BeforeEach
     public void setup() {
+        //Arrange
         wireMockServer = new WireMockServer(WireMockConfiguration.wireMockConfig().dynamicPort());
         wireMockServer.start();
         wireMockServer.stubFor(WireMock.get(urlPathEqualTo("/questions/1"))
@@ -53,12 +54,15 @@ class DefaultStackOverflowClientTest {
 
     @Test
     void fetchQuestionShouldReturnExpectedResponse() {
+        //Arrange
         String baseUrl = String.format("http://localhost:%s", wireMockServer.port());
         StackOverflowClient client = new DefaultStackOverflowClient(WebClient.builder(), baseUrl);
-
-        List<StackOverflowQuestionResponse> responseList = client.fetchQuestion("1");
         OffsetDateTime expectedDate = OffsetDateTime.ofInstant(Instant.ofEpochSecond(1705410153), ZoneOffset.UTC);
 
+        //Act
+        List<StackOverflowQuestionResponse> responseList = client.fetchQuestion("1");
+
+        //Assert
         assertThat(responseList).hasSize(1);
         assertThat(responseList.getFirst().items().getFirst().owner().displayName()).isEqualTo("Kopu4ino");
         assertThat(responseList.getFirst().items().getFirst().getLastActivityDateAsOffsetDateTime()).isEqualTo(expectedDate);
