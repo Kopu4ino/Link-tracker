@@ -130,6 +130,21 @@
             <artifactId>kafka</artifactId>
             <scope>test</scope>
         </dependency>
+
+        <!-- Doc -->
+        <dependency>
+            <groupId>org.springdoc</groupId>
+            <artifactId>springdoc-openapi-starter-webmvc-ui</artifactId>
+            <version>2.3.0</version>
+        </dependency>
+
+        <!-- models -->
+        <dependency>
+            <groupId>edu.java</groupId>
+            <artifactId>models</artifactId>
+            <version>${revision}</version>
+            <scope>compile</scope>
+        </dependency>
     </dependencies>
 
     <build>

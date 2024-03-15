@@ -1,9 +1,9 @@
 package edu.java.configuration;
 
-import edu.java.clients.GitHubClient;
-import edu.java.clients.StackOverflowClient;
-import edu.java.clients.impl.DefaultGitHubClient;
-import edu.java.clients.impl.DefaultStackOverflowClient;
+import edu.java.updateClients.GitHubClient;
+import edu.java.updateClients.StackOverflowClient;
+import edu.java.updateClients.impl.DefaultGitHubClient;
+import edu.java.updateClients.impl.DefaultStackOverflowClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

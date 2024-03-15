@@ -1,10 +1,10 @@
-package edu.java.clients;
+package edu.java.updateClients;
 
 import com.github.tomakehurst.wiremock.WireMockServer;
 import com.github.tomakehurst.wiremock.client.WireMock;
 import com.github.tomakehurst.wiremock.core.WireMockConfiguration;
-import edu.java.clients.impl.DefaultStackOverflowClient;
-import edu.java.dto.StackOverflowQuestionResponse;
+import edu.java.updateClients.impl.DefaultStackOverflowClient;
+import edu.java.updateClients.updateDto.StackOverflowQuestionResponse;
 import java.time.Instant;
 import java.time.OffsetDateTime;
 import java.time.ZoneOffset;
@@ -22,6 +22,7 @@ class DefaultStackOverflowClientTest {
 
     @BeforeEach
     public void setup() {
+        //Arrange
         wireMockServer = new WireMockServer(WireMockConfiguration.wireMockConfig().dynamicPort());
         wireMockServer.start();
         wireMockServer.stubFor(WireMock.get(urlPathEqualTo("/questions/1"))

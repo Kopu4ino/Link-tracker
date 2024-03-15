@@ -1,6 +1,6 @@
-package edu.java.clients;
+package edu.java.updateClients;
 
-import edu.java.dto.StackOverflowQuestionResponse;
+import edu.java.updateClients.updateDto.StackOverflowQuestionResponse;
 import java.util.List;
 
 public interface StackOverflowClient {
