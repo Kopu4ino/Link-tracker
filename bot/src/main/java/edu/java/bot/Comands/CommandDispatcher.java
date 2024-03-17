@@ -2,10 +2,11 @@ package edu.java.bot.Comands;
 
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.SendMessage;
-import edu.java.bot.Repository.UserRepository;
 import edu.java.bot.ResponseMessage.StandardResponseMessage;
+import edu.java.bot.api.client.ScrapperClient;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 import lombok.extern.log4j.Log4j2;
@@ -16,17 +17,18 @@ import org.springframework.stereotype.Component;
 @Log4j2
 public class CommandDispatcher {
     private final Map<String, Command> commandsMap;
-    private final UserRepository repository;
+    private final ScrapperClient scrapperClient;
 
-    public CommandDispatcher(@Autowired List<Command> commands, UserRepository repository) {
-        this.repository = repository;
+    public CommandDispatcher(@Autowired List<Command> commands, ScrapperClient scrapperClient) {
+        this.scrapperClient = scrapperClient;
         this.commandsMap = commands.stream().collect(Collectors.toMap(Command::getName, Function.identity()));
-        log.info("CommandImpl: " + commands);
+//        log.info("CommandImpl: " + commands);
     }
 
     public SendMessage execute(Update update, String commandName) {
         Long userId = update.message().chat().id();
-        boolean isUserRegistered = repository.isUserRegistered(userId);
+        Optional<String> registerResponse = scrapperClient.registerChat(userId);
+        boolean isUserRegistered = registerResponse.isPresent();
 
         if (isUserRegistered || commandName.equals(CommandType.START.getName())) {
             if (commandsMap.containsKey(commandName)) {

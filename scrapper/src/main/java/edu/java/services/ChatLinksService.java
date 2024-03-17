@@ -22,7 +22,7 @@ public class ChatLinksService {
 
     public void registerChat(Long id) {
         if (chatLinks.containsKey(id)) {
-            throw new ChatAlreadyRegisteredException("Chat already registered");
+            throw new ChatAlreadyRegisteredException(id);
         }
 
         chatLinks.put(id, new ArrayList<>());
@@ -31,7 +31,7 @@ public class ChatLinksService {
 
     public void deleteChat(Long id) {
         if (!chatLinks.containsKey(id)) {
-            throw new ChatIdNotExistsException("Can not delete chat, cause chat id not exists");
+            throw new ChatIdNotExistsException(id);
         }
 
         log.info("Chat with id {} deleted", id);
@@ -40,7 +40,7 @@ public class ChatLinksService {
 
     public List<LinkResponse> getChatLinks(Long id) {
         if (!chatLinks.containsKey(id)) {
-            throw new ChatIdNotExistsException("Can not return links, cause chat id not exists");
+            throw new ChatIdNotExistsException(id);
         }
 
         log.info("Returning links for chat with id {}", id);
@@ -49,7 +49,7 @@ public class ChatLinksService {
 
     public LinkResponse addLink(Long chatId, AddLinkRequest link) {
         if (!chatLinks.containsKey(chatId)) {
-            throw new ChatIdNotExistsException("Can not add link, cause chat id not exists");
+            throw new ChatIdNotExistsException(chatId);
         }
 
         List<LinkResponse> links = chatLinks.get(chatId);
@@ -70,7 +70,7 @@ public class ChatLinksService {
 
     public LinkResponse removeLink(Long chatId, RemoveLinkRequest link) {
         if (!chatLinks.containsKey(chatId)) {
-            throw new ChatIdNotExistsException("Can not remove link, cause chat id not exists");
+            throw new ChatIdNotExistsException(chatId);
         }
 
         List<LinkResponse> links = chatLinks.get(chatId);

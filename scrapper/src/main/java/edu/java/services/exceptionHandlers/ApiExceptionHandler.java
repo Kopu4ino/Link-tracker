@@ -17,9 +17,9 @@ public class ApiExceptionHandler {
     public ApiErrorResponse handleException(ChatAlreadyRegisteredException ex) {
         return new ApiErrorResponse(
             ex.getMessage(),
-            HttpStatus.BAD_REQUEST.getReasonPhrase(),
+            ex.getStatusCode().getReasonPhrase(),
             ex.getClass().getSimpleName(),
-            ex.getMessage()
+            ex.getDescription()
         );
     }
 
@@ -28,9 +28,9 @@ public class ApiExceptionHandler {
     public ApiErrorResponse handleException(ChatIdNotExistsException ex) {
         return new ApiErrorResponse(
             ex.getMessage(),
-            HttpStatus.BAD_REQUEST.getReasonPhrase(),
+            ex.getStatusCode().getReasonPhrase(),
             ex.getClass().getSimpleName(),
-            ex.getMessage()
+            ex.getDescription()
         );
     }
 

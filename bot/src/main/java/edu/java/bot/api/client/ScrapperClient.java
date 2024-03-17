@@ -33,10 +33,10 @@ public class ScrapperClient {
         this.webClient = webClientBuilder.baseUrl(baseUrl).build();
     }
 
-    public Optional<String> registerChat(Long id) {
+    public Optional<String> registerChat(Long chatId) {
         return webClient
             .post()
-            .uri(uriBuilder -> uriBuilder.path(PATH_TO_CHAT).build(id))
+            .uri(uriBuilder -> uriBuilder.path(PATH_TO_CHAT).build(chatId))
             .retrieve()
             .onStatus(
                 HttpStatusCode::is4xxClientError,
@@ -48,10 +48,10 @@ public class ScrapperClient {
             .blockOptional();
     }
 
-    public Optional<String> deleteChat(Long id) {
+    public Optional<String> deleteChat(Long chatId) {
         return webClient
             .delete()
-            .uri(uriBuilder -> uriBuilder.path(PATH_TO_CHAT).build(id))
+            .uri(uriBuilder -> uriBuilder.path(PATH_TO_CHAT).build(chatId))
             .retrieve()
             .onStatus(
                 HttpStatusCode::is4xxClientError,
@@ -63,11 +63,11 @@ public class ScrapperClient {
             .blockOptional();
     }
 
-    public Optional<List<LinkResponse>> getLinks(Long id) {
+    public Optional<List<LinkResponse>> getLinks(Long chatId) {
         return webClient
             .get()
             .uri(PATH_TO_LINK)
-            .header(HEADER_NAME, String.valueOf(id))
+            .header(HEADER_NAME, String.valueOf(chatId))
             .retrieve()
             .onStatus(
                 HttpStatusCode::is4xxClientError,
@@ -97,10 +97,10 @@ public class ScrapperClient {
             .blockOptional();
     }
 
-    public Optional<LinkResponse> removeLink(Long id, RemoveLinkRequest request) {
+    public Optional<LinkResponse> removeLink(Long chatId, RemoveLinkRequest request) {
         return webClient.method(HttpMethod.DELETE)
             .uri(PATH_TO_LINK)
-            .header(HEADER_NAME, String.valueOf(id))
+            .header(HEADER_NAME, String.valueOf(chatId))
             .body(BodyInserters.fromValue(request))
             .retrieve()
             .onStatus(
