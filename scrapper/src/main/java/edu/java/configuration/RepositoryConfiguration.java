@@ -13,7 +13,6 @@ public class RepositoryConfiguration {
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
-        //TODO Сделать чтобы пароли брались из APP_конфига
         dataSource.setDriverClassName("org.postgresql.Driver");
         dataSource.setUrl("jdbc:postgresql://localhost:5432/scrapper");
         dataSource.setUsername(dbName);

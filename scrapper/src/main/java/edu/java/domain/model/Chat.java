@@ -1,4 +1,4 @@
-package edu.java.domain.dto;
+package edu.java.domain.model;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -7,5 +7,8 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Chat {
     private Long id;
-    private String name;
+
+    public Chat(Long id) {
+        this.id = id;
+    }
 }

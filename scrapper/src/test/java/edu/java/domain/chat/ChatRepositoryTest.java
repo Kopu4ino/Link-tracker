@@ -1,7 +1,11 @@
 package edu.java.domain.chat;
 
-import edu.java.domain.dto.Chat;
+import edu.java.domain.ChatRepository;
+import edu.java.domain.LinkRepository;
+import edu.java.domain.model.Chat;
+import edu.java.domain.model.Link;
 import edu.java.scrapper.IntegrationTest;
+import java.util.List;
 import java.util.Optional;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -20,7 +24,7 @@ class ChatRepositoryTest extends IntegrationTest {
     @Transactional
     public void addTest() {
         //Arrange
-        Long chatId = 100L;
+        Long chatId = 1000L;
 
         //Act
         chatRepository.add(chatId);
@@ -35,7 +39,7 @@ class ChatRepositoryTest extends IntegrationTest {
     @Transactional
     public void deleteTest() {
         //Arrange
-        Long chatId = 200L;
+        Long chatId = 2000L;
 
         //Act
         chatRepository.add(chatId);
@@ -48,8 +52,22 @@ class ChatRepositoryTest extends IntegrationTest {
 
     @Test
     @Transactional
-    public void findAllTrackedLinksTest() {
-        //TODO
+    public void testFindChatsByLinkId() {
+        //Arrange
+        Long chatId = 3000L;
+        Link link = new Link("https://github.com/Kopu4ino/java-java");
+
+        chatRepository.add(chatId);
+        LinkRepository linkRepository = new LinkRepository(jdbcTemplate);
+        linkRepository.add(chatId, link);
+        Optional<Link> foundLink = linkRepository.findLinkByUrl(link.getUrl());
+
+        //Act
+        List<Long> chatIds = chatRepository.findAllChatIdsWithLink(foundLink.get().getId());
+
+        //Assert
+        assertThat(chatIds.size()).isEqualTo(1);
+        assertThat(chatIds.getFirst()).isEqualTo(chatId);
     }
 
 }

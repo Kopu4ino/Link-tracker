@@ -1,6 +1,6 @@
-package edu.java.services;
+package edu.java.service;
 
-import edu.java.domain.dto.Link;
+import edu.java.domain.model.Link;
 import java.time.OffsetDateTime;
 import java.util.List;
 
