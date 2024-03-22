@@ -2,10 +2,12 @@ app:
   github-base-url: "https://api.github.com"
   stackoverflow-base-url: "https://api.stackexchange.com/2.3"
   bot-base-url: "http://localhost:8090"
+  updates-count: 3
+  interval: 200
 
   scheduler:
-    enable: false
-    interval: 10s
+    enable: true
+    interval: 100s
     force-check-delay: 10s
 
 spring:
